@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { baseUrl } from '../../shared/baseURL';
+import { baseURL } from '../../shared/baseURL';
 
 export const fetchPromotions = createAsyncThunk(
     'promotions/fetchPromotions',
     async () => {
-        const response = await fetch(baseUrl + 'promotions');
+        const response = await fetch(baseURL + 'promotions');
         if (!response.ok) {
             return Promise.reject(
                 'Unable to fetch, status: ' + response.status

@@ -1,34 +1,31 @@
-import { useState } from "react";
-import { FlatList } from "react-native";
-import { Avatar, ListItem } from "react-native-elements";
-import { CAMPSITES } from '../shared/campsites'
+import { FlatList } from 'react-native';
+import { Tile } from 'react-native-elements';
+import { useSelector } from 'react-redux';
+import { baseURL } from '../shared/baseURL';
 
 const DirectoryScreen = ({ navigation }) => {
-    const [campsites, setCampsites] = useState(CAMPSITES);
+    const campsites = useSelector((state) => state.campsites);
 
-    const renderDirectoryItem = ({item:campsite}) => {
+    const renderDirectoryItem = ({ item: campsite }) => {
         return (
-            <ListItem onPress={() => navigation.navigate('CampsiteInfo', {campsite})}>
-                <Avatar source={campsite.image} rounded />
-                <ListItem.Content>
-                    <ListItem.Title>
-                        {campsite.name}
-                    </ListItem.Title>
-                    <ListItem.Subtitle>
-                        {campsite.description}
-                    </ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem>
-        )
-    }
-
+            <Tile
+                title={campsite.name}
+                caption={campsite.description}
+                featured
+                onPress={() =>
+                    navigation.navigate('CampsiteInfo', { campsite })
+                }
+                imageSrc={{ uri: baseURL + campsite.image }}
+            />
+        );
+    };
     return (
-        <FlatList 
-            data={campsites}
+        <FlatList
+            data={campsites.campsitesArray}
             renderItem={renderDirectoryItem}
             keyExtractor={(item) => item.id.toString()}
         />
-    )
-}
+    );
+};
 
 export default DirectoryScreen;
