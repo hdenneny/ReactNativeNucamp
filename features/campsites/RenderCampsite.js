@@ -34,7 +34,9 @@ const RenderCampsite = (props) => {
                         name='pencil'
                         type='font-awesome'
                         color='#5637DD'
-                        onPress={props.onShowModal()}
+                        raised
+                        reverse
+                        onPress={props.onShowModal}
                     />
                 </View>
             </Card>
